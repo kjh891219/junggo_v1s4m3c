@@ -1,7 +1,7 @@
 package dev.mvc.cheat;
    
 public class CheatVO {
-  private int ctno;
+  private int ctno;   
   private String gubun;
   private String region;
   private String occurday;
