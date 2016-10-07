@@ -49,7 +49,7 @@ public class CheatVO {
   }
   public String getCheatid() {
     return cheatid;
-  }  
+  }    
   public void setCheatid(String cheatid) {
     this.cheatid = cheatid;
   }
