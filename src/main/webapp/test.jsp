@@ -1,12 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
+<%
+int admin1no = Integer.parseInt(request.getParameter("admin1no"));
+String act = request.getParameter("act");
+%>
+<!DOCTYPE html> 
+<html lang="ko"> 
+<head> 
+<meta charset="UTF-8"> 
+<title></title> 
 </head>
 <body>
-Åä¿äÀÏ<br>
+í† ìš”ì¼<br>
 </body>
 </html>
