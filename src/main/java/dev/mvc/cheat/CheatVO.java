@@ -1,5 +1,5 @@
 package dev.mvc.cheat;
-
+   
 public class CheatVO {
   private int ctno;
   private String gubun;
@@ -49,7 +49,7 @@ public class CheatVO {
   }
   public String getCheatid() {
     return cheatid;
-  }
+  }  
   public void setCheatid(String cheatid) {
     this.cheatid = cheatid;
   }
