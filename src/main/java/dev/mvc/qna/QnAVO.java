@@ -13,7 +13,7 @@ public class QnAVO {
    public QnAVO(){
       
    }
-   
+    
    public QnAVO(int qnano, String title, String content, String qfile, String writer, String passwd,
          int categoryno) {
       this.qnano = qnano;
