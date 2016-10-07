@@ -68,7 +68,7 @@ $(function(){
       <A href="./read.do?mno=${vo.qnano}"><IMG src='../menu/images/update.png' width="16px" title='수정'></A>
       <A href="./delete.do?mno=${vo.qnano}"><IMG src='../menu/images/delete.png' width="16px" title='삭제'></A>
     </TD>
-    
+     
   </TR>
  </c:forEach>
 </TABLE>
