@@ -18,7 +18,7 @@ public class CheatVO {
   private String rdate;
   private String title;
   public int getCtno() {
-    return ctno;
+    return ctno;  
   }
   public void setCtno(int ctno) {
     this.ctno = ctno;
