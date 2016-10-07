@@ -17,6 +17,7 @@ public class CheatVO {
   private String passwd;
   private String rdate;
   private String title;
+  
   public int getCtno() {
     return ctno;  
   }
