@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "cosmetic">
+  <insert id="create" parameterType="CosmeticVO">
+   INSERT INTO cosmetic(bno, 
+               category, writer, passwd, deal_sort, product_sort, deal_region, deal_way, price, wish_price, deal_date, quantity, email, phone, title, content)
+   VALUES((SELECT NVL(MAX(bno), 0)+1 as bno FROM cosmetic),
+               #{category}, #{writer}, #{passwd}, #{deal_sort}, #{product_sort}, #{deal_region}, #{deal_way}, #{price}, #{wish_price}, #{deal_date}, #{quantity}, #{email}, #{phone}, #{title}, #{content})
+  </insert>
+ 
+ <!-- 검색을 하지 않는 전체 목록 --> 
+  <select id="list" resultType="CosmeticVO">
+  SELECT bno, category, title, price, deal_region, deal_way, writer
+  FROM cosmetic
+  </select>
+  
+   
+ </mapper>
