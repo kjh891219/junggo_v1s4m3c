@@ -8,12 +8,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <select id='checkId' resultType='int' parameterType='String'>
     SELECT COUNT(userid) as cnt
-    FROM member
+    FROM member_test
     WHERE userid=#{userid}
   </select>
  
   <insert id="create" parameterType="MemberVO">
-    INSERT INTO member(userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
+    INSERT INTO member_test(userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
                           auth, confirm, act, droupout)
     VALUES (#{userid}, (SELECT NVL(MAX(mno), 0)+1 as mno FROM member), #{pwd}, #{name}, #{nickname}, #{email}, #{tel}, #{zipcode}, #{address1}, #{address2}, sysdate,
               #{auth}, #{confirm}, #{act}, #{droupout})
@@ -22,12 +22,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 검색을하지 않는 전체 목록  -->
   <select id="list" resultType="MemberVO">
     SELECT mno, userid, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate
-    FROM member
+    FROM member_test
     ORDER BY mno ASC
   </select>
  
   <update id="update" parameterType="MemberVO">
-    UPDATE member 
+    UPDATE member_test 
     SET pwd=#{pwd}, nickname=#{nickname}, email=#{email}, zipcode=#{zipcode},
           address1=#{address1}, address2=#{address2}
     WHERE mno=#{mno}
@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="read" resultType="MemberVO" parameterType="int">
     SELECT userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
                           auth, confirm, act, droupout
-    FROM member
+    FROM member_test
     WHERE mno = #{mno}
   </select>
    
@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="read_userid" resultType="MemberVO" parameterType="String">
     SELECT userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
                           auth, confirm, act, droupout
-    FROM member
+    FROM member_test
     WHERE userid = #{userid}
   </select>
  <!--    
@@ -76,13 +76,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 관리자 권한 조회 -->
   <select id="admin_search" resultType="int" parameterType="String">
       SELECT COUNT(mno) as cnt
-      FROM member
+      FROM member_test
       WHERE act=#{act}
   </select>
   
   <!-- 사용자가 회원 가입 이메일 링크를 눌렀을 경우의 처리 -->
   <update id="confirm" parameterType="MemberVO">
-      UPDATE member
+      UPDATE member_test
       SET confirm = 'Y', act = 'Y'
       WHERE email=#{email} AND auth=#{auth}
   </update>
@@ -90,7 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 로그인  -->
   <select id="login" resultType="int" parameterType="MemberVO">
       SELECT COUNT(userid) as cnt 
-      FROM member 
+      FROM member_test 
       WHERE userid=#{userid} AND pwd=#{pwd}
   </select>
   
