@@ -87,6 +87,7 @@
 </div>
 <DIV style="text-align: right;">
   <button type='button' onclick="location.href='./update.do?ctno=${cameraVO.ctno}'">수정</button>
+  <button type='button' onclick="location.href='./delete.do?ctno=${cameraVO.ctno}'">삭제</button>
   <button type='button' onclick="location.href='./list.do'">목록</button>
   
 </DIV>

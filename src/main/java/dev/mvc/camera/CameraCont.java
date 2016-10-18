@@ -143,4 +143,48 @@ public class CameraCont {
  
     return mav;
   }
+  
+  /**
+   * 삭제폼
+   * @param ctno
+   * @return
+   */
+  @RequestMapping(value = "/camera/delete.do", 
+                              method = RequestMethod.GET)
+  public ModelAndView delete(int ctno) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/camera/delete"); // /webapp/blog/delete.jsp
+    mav.addObject("ctno", ctno);
+    return mav;
+  }
+  
+  /**
+   * 삭제 처리
+   * @param blogVO
+   * @return
+   */
+  @RequestMapping(value = "/camera/delete.do", 
+                             method = RequestMethod.POST)
+  public ModelAndView delete(CameraVO cameraVO) {
+    ModelAndView mav = new ModelAndView();
+
+    ArrayList<String> msgs = new ArrayList<String>();
+    ArrayList<String> links = new ArrayList<String>();
+    
+    if (cameraDAO.delete(cameraVO.getCtno()) == 1) {
+      
+      mav.setViewName("redirect:/camera/list.do");//확장자 명시
+
+    } else {
+      msgs.add("글 삭제에 실패했습니다.");
+      links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
+      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='./list.do'>목록</button>");
+    }
+    
+    mav.addObject("msgs", msgs);
+    mav.addObject("links", links);
+    
+    return mav;
+  }
 }

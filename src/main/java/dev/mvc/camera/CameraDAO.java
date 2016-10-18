@@ -36,5 +36,9 @@ public class CameraDAO implements CameraDAOInter{
   public int update(CameraVO cameraVO) {
     return mybatis.update("camera.update", cameraVO);
   }
+  @Override
+  public int delete(int ctno) {
+    return mybatis.delete("camera.delete", ctno);
+  }
 
 }
