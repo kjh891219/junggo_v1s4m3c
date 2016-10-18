@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8"> 
+<meta charset="UTF-8">
 <title></title>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
@@ -16,7 +16,7 @@
   
   $(function(){
     $.removeCookie('checkId'); // 기존의 쿠기 값을 삭제  
-    $.removeCookie('checkPwd'); // 기존의 쿠기 값을 삭제   
+    $.removeCookie('checkPwd'); // 기존의 쿠기 값을 삭제  
     $.removeCookie('checkNickname'); // 기존의 쿠기 값을 삭제  
     $.removeCookie('checkEmail'); // 기존의 쿠기 값을 삭제  
     
@@ -74,6 +74,7 @@
      } else {
        if(check1 != 'PASS' || check2 != 'PASS' || check3 != 'PASS' || check4 != 'PASS'){
         return false;
+        }
      }
      if(check1 == 'PASS'&& check2 == 'PASS' && check3 == 'PASS' && check4 == 'PASS'){
         return true;
