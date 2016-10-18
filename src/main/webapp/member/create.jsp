@@ -16,7 +16,7 @@
   
   $(function(){
     $.removeCookie('checkId'); // 기존의 쿠기 값을 삭제  
-    $.removeCookie('checkPwd'); // 기존의 쿠기 값을 삭제  
+    $.removeCookie('checkPwd'); // 기존의 쿠기 값을 삭제   
     $.removeCookie('checkNickname'); // 기존의 쿠기 값을 삭제  
     $.removeCookie('checkEmail'); // 기존의 쿠기 값을 삭제  
     
