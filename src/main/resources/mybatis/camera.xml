@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <update id='update' parameterType="CameraVO">
     update camera
     set category=#{category}, nickname=#{nickname}, passwd=#{passwd}, deal_way=#{deal_way}, deal_code=#{deal_code}, product_code=#{product_code}, hprice=#{hprice}, region=#{region}, tel=#{tel}, email=#{email}, quantity=#{quantity}, title=#{title}, content=#{content}, purc_date=#{purc_date} 
-    where ctno = #{ctno};
+    where ctno = #{ctno}
   </update>
   <!-- 삭제 -->
   <delete id="delete" parameterType="int">
