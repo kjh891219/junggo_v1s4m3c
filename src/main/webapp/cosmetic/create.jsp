@@ -21,7 +21,7 @@ $(function(){
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-<jsp:include page="/menu/top.jsp" flush='false' />
+<%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
 <!-- ----------------------------------------- -->
 
 <DIV class='title'>물품 등록</DIV>
@@ -147,7 +147,7 @@ $(function(){
 </DIV>
 
 <!-- -------------------------------------------- -->
-<jsp:include page="/menu/bottom.jsp" flush='false' />
+<%-- <jsp:include page="/menu/bottom.jsp" flush='false' /> --%>
 </body>
 <!-- -------------------------------------------- -->
 </html> 
