@@ -16,6 +16,32 @@
   
   $(function(){
     $.removeCookie('checkId'); // 기존의 쿠기 값을 삭제  
+    $.removeCookie('checkPwd'); // 기존의 쿠기 값을 삭제  
+    $.removeCookie('checkNickname'); // 기존의 쿠기 값을 삭제  
+    $.removeCookie('checkEmail'); // 기존의 쿠기 값을 삭제  
+    
+    $('#pwd2').focusout(function(){
+        if ( $('#pwd').val() == $('#pwd2').val() ) {
+          $('#panel_pwd').css('color', '#737373');
+          $('#panel_pwd').html('일치합니다.');
+          $.cookie('checkPwd', 'PASS'); // 쿠키 생성
+        } else {
+          $('#panel_pwd').css('color','#FF0000')
+          $('#panel_pwd').html('일치하지 않습니다');
+          $('#pwd2').focus();
+        }
+      });
+    
+    $('#nickname').focusout(function(){
+      var params = 'nickname=' + $('#nickname').val();
+      $.post('./checkNickname.do', params, checkNickname_res, 'json');
+      });
+    
+    $('#email').focusout(function(){
+      var params = 'email=' + $('#email').val();
+      $.post('./checkEmail.do', params, checkEmail_res, 'json');
+      });
+    
   });
   
   function checkId(){
@@ -26,7 +52,7 @@
   
   function checkId_res(data){
     if(data.cnt == 0){
-      $('#panel_id').css('color', '#00AA00');
+      $('#panel_id').css('color', '#737373');
       $('#panel_id').html('아이디가 사용 가능합니다.');
       $.cookie('checkId', 'PASS'); // 쿠키 생성
     }else if(data.cnt == 1){
@@ -36,27 +62,48 @@
     }
   }
   function send(){
-     var check = $.cookie('checkId');
-     if(check != 'PASS'){
+     var check1 = $.cookie('checkId');
+     var check2 = $.cookie('checkPwd');
+     var check3 = $.cookie('checkNickname');
+     var check4 = $.cookie('checkEmail');
+     if(check1 != 'PASS'){
         $('#panel_id').css('color','#FF0000')
         $('#panel_id').html('중복 ID 검사를 해주세요');
         $('#id').focus();
         return false;
      }else{
+       if(check2 == 'PASS' && check3 == 'PASS' && check4 == 'PASS'){
         return true;
+       }
+        return false;
      }   
   }
   
-  function checkPwd() {
-    if ( $('#pwd').val() == $('#pwd2').val() ) {
-      $('#panel_pwd').css('color', '#00AA00');
-      $('#panel_pwd').html('일치합니다.');
-    } else {
-      $('#panel_pwd').css('color','#FF0000')
-      $('#panel_pwd').html('일치하지 않습니다');
-      $('#pwd2').focus();
+  function checkNickname_res(data){
+    if(data.cnt == 0){
+      $('#panel_nickname').css('color', '#737373');
+      $('#panel_nickname').html('사용 가능합니다.');
+      $.cookie('checkNickname', 'PASS'); // 쿠키 생성
+    }else if(data.cnt == 1){
+      $('#panel_nickname').css('color', '#FF0000');
+      $('#panel_nickname').html('닉네임이 중복됩니다.');
     }
   }
+
+  function checkEmail_res(data){
+    if(data.cnt == 0){
+      $('#panel_email').css('color', '#737373');
+      $('#panel_email').html('사용 가능합니다.');
+      $.cookie('checkEmail', 'PASS'); // 쿠키 생성
+    }else if(data.cnt == 1){
+      $('#panel_email').css('color', '#FF0000');
+      $('#panel_email').html('이미 사용 중인 이메일입니다.');
+    }
+  }
+  
+  
+
+  
 </script>
  
 </head> 
@@ -85,7 +132,7 @@
       <li>
         <label class='label' for='pwd2'>비밀번호 확인</label>
         <input type='password' name='pwd2' id='pwd2' value='1234' required="required">
-        <button type='button' onclick='checkPwd()'>비밀번호 확인</button>
+        <!-- <button type='button' onclick='checkPwd()'>비밀번호 확인</button> -->
         <SPAN id='panel_pwd'></SPAN> <!-- ID 중복 관련 메시지 -->
       </li>
       <li>
@@ -95,14 +142,16 @@
       <li>
         <label class='label' for='nickname'>닉네임</label>
         <input type='text' name='nickname' id='nickname' value='닉네임' required="required">
-      </li>
-      <li>
-        <label class='label' for='email'>이메일</label>
-        <input type='email' name='email' id='email' value='test@mail.com' required="required">
+        <SPAN id='panel_nickname'></SPAN>
       </li>
       <li>
         <label class='label' for='tel'>전화번호</label>
         <input type="tel" name='tel' id='tel' value='010-1111-1111'> 예) 010-0000-0000
+      </li>
+      <li>
+        <label class='label' for='email'>이메일</label>
+        <input type='email' name='email' id='email' value='test@mail.com' required="required">
+        <SPAN id='panel_email'></SPAN>
       </li>
       <li>
         <label class='label' for='zipcode'>우편번호</label>
