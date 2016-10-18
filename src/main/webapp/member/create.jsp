@@ -71,12 +71,13 @@
         $('#panel_id').html('중복 ID 검사를 해주세요');
         $('#id').focus();
         return false;
-     }else{
-       if(check2 == 'PASS' && check3 == 'PASS' && check4 == 'PASS'){
-        return true;
-       }
+     } else {
+       if(check1 != 'PASS' || check2 != 'PASS' || check3 != 'PASS' || check4 != 'PASS'){
         return false;
-     }   
+     }
+     if(check1 == 'PASS'&& check2 == 'PASS' && check3 == 'PASS' && check4 == 'PASS'){
+        return true;
+     }
   }
   
   function checkNickname_res(data){
