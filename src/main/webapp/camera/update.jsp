@@ -27,9 +27,9 @@
 
 
 <DIV class='center-block'>
-<DIV class='title'>글등록</DIV>
-<FORM name='frm' method='POST' action='./create.do' class='form-inline'>
-  <input type='hidden' name='userid' id='userid' value= '${userid }'/>
+<DIV class='title'>글수정</DIV>
+<FORM name='frm' method='POST' action='./update.do' class='form-inline'>
+  <input type='hidden' name='ctno' id='ctno' value='${cameraVO.ctno}'>
   <fieldset>
     <ul>
     <div class="row">
@@ -44,18 +44,18 @@
       </div>
       <div class="col-xs-5">
       <label for='tel' >*전화번호</label>
-        <input type='text' name='tel' id='tel'  required="required" value='010-1111-2222' class="form-control-lg-10-lg-10-lg-10"> 
+        <input type='text' name='tel' id='tel'  required="required" value='${cameraVO.tel }' class="form-control-lg-10-lg-10-lg-10"> 
       </div>
       </div>
       <hr/>
       <div class="row">
       <div class="col-xs-5"> 
         <label for='nickname'>*별명</label>
-        <input type='text' name='nickname' id='nickname' value= '${memberVO.nickname }' required="required" readonly="readonly" class='form-control-lg-10-lg-10-lg-10-lg-10'/>
+        <input type='text' name='nickname' id='nickname' value= '${cameraVO.nickname }' required="required" readonly="readonly" class='form-control-lg-10-lg-10-lg-10-lg-10'/>
       </div>
      <div class="col-xs-5">    
         <label for='passwd'>*패스워드</label>
-        <input type='password' name='passwd' id='passwd' value='1234' required="required" class='form-control-lg-10-lg-10-lg-10'/>
+        <input type='password' name='passwd' id='passwd' value='${cameraVO.passwd }' required="required" class='form-control-lg-10-lg-10-lg-10'/>
       </div>
       </div>
       <hr/>
@@ -88,6 +88,7 @@
         <label for='region'>*지역</label>
          <select name='region' id='region' class="form-control-lg-10-lg-10-lg-10">
            <option value="서울" selected="selected">서울</option>
+           <option value="서울">서울</option>
            <option value="인천">인천</option>
            <option value="대구">대구</option>
            <option value="대전">대전</option>
@@ -110,33 +111,33 @@
       <div class="row">
         <div class="col-xs-5"> 
         <label for='hprice'>*희망가격</label>
-        <input type='text' name='hprice' id='hprice'  required="required" value='100000' class="form-control-lg-10-lg-10-lg-10">원
+        <input type='text' name='hprice' id='hprice'  required="required" value='${cameraVO.hprice }' class="form-control-lg-10-lg-10-lg-10">원
         </div>
         <div class="col-xs-5">       
         <label for='purc_date' >구입시기</label>
-        <input type='text' name='purc_date' id='purc_date' value='2016년10월' class="form-control-lg-10-lg-10-lg-10"> 
+        <input type='text' name='purc_date' id='purc_date' value='${cameraVO.purc_date }' class="form-control-lg-10-lg-10-lg-10"> 
         </div>
      </div>
       <hr/>
       <div class="row">
       <div class="col-xs-5"> 
         <label for='quantity'>수량</label>
-        <input type='text' name='quantity' id='quantity' value='1' class="form-control-lg-10-lg-10-lg-10">
+        <input type='text' name='quantity' id='quantity' value='${cameraVO.quantity}' class="form-control-lg-10-lg-10-lg-10">
       </div>
        <div class="col-xs-5">  
         <label for='email'>*이메일</label>
-        <input type='text' name='email' id='email'  required="required" value='${memberVO.email }' class="form-control-lg-10-lg-10-lg-10">
+        <input type='text' name='email' id='email'  required="required" value='${cameraVO.email}' class="form-control-lg-10-lg-10-lg-10">
         </div>
        </div>
       <hr/>
       <div class="form-group">
         <label for='title'>*제목</label>
-        <input type='text' name='title' id='title' required="required" value='디카팔아요' class="form-control-lg-10-lg-10-lg-10">
+        <input type='text' name='title' id='title' required="required" value='${cameraVO.title} ' class="form-control-lg-10-lg-10-lg-10">
       </div>
       <hr/>
       <div class="form-group">
         <label for='content'>상세설명</label>
-        <textarea rows="10" cols="100"  name="content" id="content" placeholder="내용을 입력하세요" class="form-group">sqld책 싸게 팔아요</textarea>
+        <textarea rows="10" cols="100"  name="content" id="content" placeholder="내용을 입력하세요" class="form-group">${cameraVO.content}</textarea>
       </div>
       <hr/>
       <div>

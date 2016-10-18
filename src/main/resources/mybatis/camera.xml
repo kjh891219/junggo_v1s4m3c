@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- Oracle 기반 -->
+<mapper namespace = "camera">
+
+  <!-- 검색을하지 않는 전체 목록 -->
+  <select id="list" resultType="CameraVO">
+   SELECT ctno, deal_code, title, hprice, deal_way, region, nickname  
+   FROM camera
+   ORDER BY ctno DESC         
+  </select>
+   
+  <!-- 등록 --> 
+  <insert id="create" parameterType="CameraVO">
+   insert into CAMERA(ctno ,category, nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, userid) 
+   values ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM CAMERA),
+   #{category}, #{nickname}, #{passwd}, #{deal_way}, #{deal_code},#{product_code}, #{hprice},#{region},  #{tel}, #{email}, #{quantity}, #{title}, #{content}, #{purc_date}, #{userid})
+  </insert> 
+  
+  <!-- 조회 -->
+  <select id="read" resultType="CameraVO" parameterType="int">
+    select ctno ,category, nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, cnt
+    from camera
+    where ctno = #{ctno}
+  </select>
+  
+  
+  <!-- 테스트  -->
+  <select id="test" resultType="MemberVO" parameterType="String">
+    select nickname, email
+    from member_test 
+    where userid=#{userid}
+  </select> 
+  <!-- 수정 -->
+  <update id='update' parameterType="CameraVO">
+    update camera
+    set category=#{category}, nickname=#{nickname}, passwd=#{passwd}, deal_way=#{deal_way}, deal_code=#{deal_code}, product_code=#{product_code}, hprice=#{hprice}, region=#{region}, tel=#{tel}, email=#{email}, quantity=#{quantity}, title=#{title}, content=#{content}, purc_date=#{purc_date} 
+    where ctno = #{ctno};
+  </update>
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    delete camera
+    where ctno = #{ctno}
+  </delete>        
+</mapper>
