@@ -42,6 +42,10 @@
     padding: 0px;  
   }
   
+  a{
+   color:black;
+  }
+  
   a.menu_style{
    color:white;
   }
