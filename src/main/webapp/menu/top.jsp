@@ -4,7 +4,7 @@
 String root = request.getContextPath();
 %>
 <header>
-   <DIV style='float:right;'>
+   <DIV style='float:right;'> 
             <ul class="member-list">
                <% if(session.getAttribute("userid") == null) { // 회원 로그인 여부 검사 %>
                <li class="login"><a href="<%=root %>/member/login.do"><span></span>LOGIN</a></li>
