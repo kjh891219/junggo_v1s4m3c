@@ -30,5 +30,5 @@ String root = request.getContextPath();
             <div style='clear:both;'></div>
       
    </DIV>
-            <div style='clear:both;'></div>
+            <div style='clear:both;'></div> 
 </header>
