@@ -133,6 +133,8 @@ public class MemberCont {
       links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
     }
  
+    links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
+ 
     mav.addObject("msgs", msgs);
     mav.addObject("links", links);
  
@@ -230,6 +232,8 @@ public class MemberCont {
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
       links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
     }
+ 
+    links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
  
     mav.addObject("msgs", msgs);
     mav.addObject("links", links);
