@@ -49,4 +49,11 @@ public interface CameraDAOInter {
    */
   public int update(CameraVO cameraVO);
   
+  /**
+   * 카메라 글삭제
+   * <delete id="delete" parameterType="int">
+   * @param ctno
+   * @return
+   */
+  public int delete(int ctno);
 }

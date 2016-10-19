@@ -36,7 +36,8 @@
       <div class="col-xs-5">
         <label class='select' for='category'>*분류</label>
         <select name='category' id="category" class="form-control-lg-10-lg-10-lg-10-lg-10">
-           <option value="DSLR" selected="selected">DSLR</option>
+           <option value="${cameraVO.category }" selected="selected">${cameraVO.category }</option>
+           <option value="DSLR">DSLR</option>
            <option value="일반디카">일반디카</option>
            <option value="필름카메라">필름카메라</option>
            <option value="렌즈">렌즈</option>
@@ -63,14 +64,16 @@
         <div class="col-xs-5">  
         <label for='deal_code'>*거래구분</label>
         <select name='deal_code' id="deal_code" class="form-control-lg-10-lg-10-lg-10">
-           <option value="팝니다" selected="selected">팝니다</option>
+           <option value="${cameraVO.deal_code }" selected="selected">${cameraVO.deal_code }</option>
+           <option value="팝니다">팝니다</option>
            <option value="삽니다">삽니다</option>
         </select>
         </div>
         <div class="col-xs-5">
          <label for='product_code'>*상품구분</label>
         <select name='product_code' id='product_code' class="form-control-lg-10-lg-10-lg-10">
-           <option value="중고품" selected="selected">중고품</option>
+           <option value="${cameraVO.product_code }" selected="selected">${cameraVO.product_code }</option>
+           <option value="중고품">중고품</option>
            <option value="신상품">신상품</option>
         </select>
         </div>
@@ -80,14 +83,15 @@
        <div class="col-xs-5"> 
          <label for='deal_way'>*거래방식</label>
          <select name='deal_way' id='deal_way' class="form-control-lg-10-lg-10-lg-10">
-           <option value="직거래" selected="selected">직거래</option>
-           <option value="</">택배</option>
+           <option value="${cameraVO.deal_way}" selected="selected">${cameraVO.deal_way}</option>
+           <option value="직거래">직거래</option>
+           <option value="택배">택배</option>
         </select >
         </div>
         <div class="col-xs-5">  
         <label for='region'>*지역</label>
          <select name='region' id='region' class="form-control-lg-10-lg-10-lg-10">
-           <option value="서울" selected="selected">서울</option>
+           <option value="${cameraVO.region }" selected="selected">${cameraVO.region }</option>
            <option value="서울">서울</option>
            <option value="인천">인천</option>
            <option value="대구">대구</option>

@@ -90,24 +90,24 @@
 			<version>1</version>
 		</dependency>
 				
-		<!-- Servlet -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
+	<!-- Servlet -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
 	
 		<!-- Test -->
 		<dependency>
@@ -123,7 +123,7 @@
       <artifactId>ojdbc6</artifactId>
       <version>11.1.0.7.0</version>
     </dependency>
- 
+
     <!-- MySQL JDBC Driver -->
     <!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
       <version>5.1.38</version> </dependency> -->
@@ -133,41 +133,41 @@
       <artifactId>spring-orm</artifactId>
       <version>${org.springframework-version}</version>
     </dependency>
- 
+
     <!-- MyBATIS -->
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
       <version>3.2.8</version>
     </dependency>
- 
+
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis-spring</artifactId>
       <version>1.2.3</version>
     </dependency>
- 
+
     <!-- DBCP -->
     <dependency>
       <groupId>commons-dbcp</groupId>
       <artifactId>commons-dbcp</artifactId>
       <version>1.4</version>
     </dependency>
- 
+
     <!-- cglib setting -->
     <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib</artifactId>
       <version>2.2.2</version>
     </dependency>
- 
+
     <!-- JSON -->
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
       <version>1.1.1</version>
     </dependency>
- 
+
     <!-- Fileupload -->
     <dependency>
       <groupId>commons-fileupload</groupId>
@@ -179,15 +179,15 @@
       <artifactId>commons-io</artifactId>
       <version>2.4</version>
     </dependency>
- 
+
     <!-- Mail -->
     <dependency>
       <groupId>javax.mail</groupId>
       <artifactId>mail</artifactId>
       <version>1.4.7</version>
     </dependency>
- 
-    <!-- ***** 개발자 추가 선언 영역 종료 ***** --> 
+
+    <!-- ***** 개발자 추가 선언 영역 종료 ***** -->   
           
 	</dependencies>
     <build>
