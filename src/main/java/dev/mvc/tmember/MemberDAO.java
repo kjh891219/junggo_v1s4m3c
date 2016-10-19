@@ -1,6 +1,8 @@
 package dev.mvc.tmember;
  
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +89,29 @@ public  class MemberDAO implements MemberDAOInter{
   @Override
   public int login(MemberVO memberVO) {
     return mybatis.selectOne("member.login", memberVO);
+  }
+
+  @Override
+  public int dropout(MemberVO memberVO) {
+    return mybatis.update("member.dropout", memberVO);
+  }
+
+  @Override
+  public int checkPwd(String userid, String pwd) {
+    Map map = new HashMap();
+    map.put("userid", userid);
+    map.put("pwd", pwd);
+    return mybatis.selectOne("member.checkPwd", map);
+  }
+
+  @Override
+  public int checkNickname_update(HashMap map) {
+    return mybatis.selectOne("member.checkNickname_update", map);
+  }
+
+  @Override
+  public int checkEmail_update(HashMap map) {
+    return mybatis.selectOne("member.checkEmail_update", map);
   }
    
   

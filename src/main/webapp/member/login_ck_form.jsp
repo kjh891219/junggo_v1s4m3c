@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="web.tool.*" %>
-  
+ 
 <%
 String url_address = Tool.checkNull(request.getParameter("url_address")); // 로그인 후 이동할 주소
 
@@ -67,7 +67,7 @@ for (int i=0; i < cookies.length; i++){
       <li class='center'>
         <button type='submit'>로그인</button>
         <button type='button' onclick="history.back();">취소</button>
-        <button><A href="./create.do">회원가입</A></button>
+        <A href="./create.do">회원가입</A>
       </li>
     </ul>
   </fieldset>

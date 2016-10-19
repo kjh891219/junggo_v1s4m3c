@@ -17,16 +17,89 @@
  
 <script type="text/javascript">
 
-function checkPwd() {
-  if ( $('#pwd').val() == $('#pwd2').val() ) {
-    $('#panel_pwd').css('color', '#00AA00');
-    $('#panel_pwd').html('일치합니다.');
-  } else {
-    $('#panel_pwd').css('color','#FF0000')
-    $('#panel_pwd').html('일치하지 않습니다');
-    $('#pwd2').focus();
+$(function(){
+  alert("${memberVO.email}");
+  alert("${memberVO.getConfirm()}");
+  $.removeCookie('checkPwd'); // 기존의 쿠기 값을 삭제  
+  $.removeCookie('checkNickname'); // 기존의 쿠기 값을 삭제  
+  $.removeCookie('checkEmail'); // 기존의 쿠기 값을 삭제  
+  
+  $.cookie('checkNickname', 'PASS');
+  $.cookie('checkEmail', 'PASS');
+  $.cookie('checkPwd', 'PASS');
+  
+  $('#pwd2').focusout(function(){
+      if ( $('#pwd').val() == $('#pwd2').val() ) {
+        $('#panel_pwd').css('color', '#737373');
+        $('#panel_pwd').html('일치합니다.');
+        $.cookie('checkPwd', 'PASS'); // 쿠키 생성
+      } else {
+        $('#panel_pwd').css('color','#FF0000')
+        $('#panel_pwd').html('일치하지 않습니다');
+        $('#pwd2').focus();
+      }
+    });
+  
+  $('#nickname').focusout(function(){
+    $.post('./checkNickname_update.do', {nickname: $('#nickname').val(),
+      userid: $('#userid').val()}, 
+                              checkNickname_res, 'json');
+    });
+  
+  $('#email').focusout(function(){
+    var params = 'email=' + $('#email').val();
+    $.post('./checkEmail_update.do', {email: $('#email').val(),
+      userid: $('#userid').val()}, checkEmail_res, 'json');
+    });
+});
+
+function send(){
+   var check2 = $.cookie('checkPwd');
+   var check3 = $.cookie('checkNickname');
+   var check4 = $.cookie('checkEmail');
+   if(check2 != 'PASS' || check3 != 'PASS' || check4 != 'PASS'){
+      return false;
+      }   
+   if(check2 == 'PASS' && check3 == 'PASS' && check4 == 'PASS'){
+      checkEmail_res2();
+      return true;
+   }
+ }
+
+function checkNickname_res(data){
+  if(data.cnt == 0){
+    $('#panel_nickname').css('color', '#737373');
+    $('#panel_nickname').html('사용 가능합니다.');
+    $.cookie('checkNickname', 'PASS'); // 쿠키 생성
+  }else if(data.cnt == 1){
+    $('#panel_nickname').css('color', '#FF0000');
+    $('#panel_nickname').html('닉네임이 중복됩니다.');
   }
 }
+
+function checkEmail_res(data){
+  if(data.cnt == 0){
+    $('#panel_email').css('color', '#737373');
+    $('#panel_email').html('사용 가능합니다.');
+    $.cookie('checkEmail', 'PASS'); // 쿠키 생성
+  }else if(data.cnt == 1){
+    $('#panel_email').css('color', '#FF0000');
+    $('#panel_email').html('이미 사용 중인 이메일입니다.');
+  }
+}
+
+function checkEmail_res2(){
+  if( "${memberVO.email}".equals($('#email').val()) ) {
+    //$.post('./emailConfirm.do', "${memberVO}", 'json');
+  }
+  else {
+    // $.post('./emailConfirm.do', "${memberVO}", 'json');
+  }
+}
+
+
+
+
 </script>
  
 </head> 
@@ -38,17 +111,19 @@ function checkPwd() {
 <DIV class='title'>회원 정보 수정</DIV>
  
 <DIV class='content'>
-<FORM name='frm' method='POST' action='./update.do'>
+<FORM name='frm' method='POST' action='./emailConfirm.do' onsubmit = 'send()'>
   <input type='hidden' name='mno' value='${memberVO.mno}'>         
+  <input type='hidden' name='confirm' value='${memberVO.confirm}'>         
+  <input type='hidden' name='act' value='${memberVO.act}'>         
   <fieldset>
     <ul>
       <li>
         <label class='label' for='userid'>아이디</label>
-        ${memberVO.userid}
+        <input type='text' id='userid' value='${memberVO.userid}' readonly>
       </li>
       <li>
-        <label class='label' for='mname'>성명</label>
-        ${memberVO.name}
+        <label class='label' for='name'>성명</label>
+        <input type='text' id='name' value='${memberVO.name}' readonly>
       </li>
       <li>
         <label class='label' for='pwd'>비밀번호</label>
@@ -57,16 +132,17 @@ function checkPwd() {
       <li>
         <label class='label' for='pwd2'>비밀번호 확인</label>
         <input type='password' name='pwd2' id='pwd2' value='1234' required="required">
-        <button type='button' onclick='checkPwd()'>비밀번호 확인</button>
         <SPAN id='panel_pwd'></SPAN> <!-- ID 중복 관련 메시지 -->
       </li>
       <li>
         <label class='label' for='nickname'>닉네임</label>
         <input type='text' name='nickname' id='nickname' value='${memberVO.nickname}' required="required">
+        <SPAN id='panel_nickname'></SPAN>
       </li>
       <li>
         <label class='label' for='email'>이메일</label>
         <input type='email' name='email' id='email' value='${memberVO.email}' required="required">
+        <SPAN id='panel_email'></SPAN>
       </li>
       <li>
         <label class='label' for='tel'>전화번호</label>

@@ -1,5 +1,6 @@
 package dev.mvc.tmember;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -89,4 +90,36 @@ public interface MemberDAOInter {
    */
   public int login(MemberVO memberVO);
   
+  /**
+   * 탈퇴 신청
+   * <update id="dropout" parameterType="MemberVO">
+   * @param memberVO
+   * @return 
+   */
+  public int dropout(MemberVO memberVO);
+  
+  /**
+   * 본인 인증 - 비밀번호 확인
+    <select id="checkPwd" resultType="int" parameterType="Map">
+   * @param userid
+   * @param pwd
+   * @return
+   */
+  public int checkPwd(String userid, String pwd);
+
+  /** 수정 시 닉네임 중복 환인
+   * <select id='checkNickname_update' resultType='int' parameterType='map'>
+   * @param userid 자신을 제외
+   * @param pwd
+   * @return
+   */
+  public int checkNickname_update(HashMap map);
+  
+  /** 수정 시 이메일 중복 확인
+   * <select id='checkEmail_update' resultType='int' parameterType='Map'>
+   * @param userid
+   * @param pwd
+   * @return
+   */
+  public int checkEmail_update(HashMap map);
 }

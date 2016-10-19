@@ -22,13 +22,13 @@
 <jsp:include page="/menu/top.jsp" flush='false' />
 <!-- ----------------------------------------- -->
  
-<DIV class='title'>회원 삭제</DIV>
+<DIV class='title'>회원 탈퇴</DIV>
  
 <DIV class='content' style='width: 500px; text-align: center;'>
-<FORM name='frm' method='POST' action='./delete.do'>
-  회원을 삭제하면 복구 할 수 없습니다.<br><br>
-  정말로 삭제하시겠습니까?<br><br>         
-  <input type='hidden' name='mno' value='${mno }'>         
+<FORM name='frm' method='POST' action='./dropout.do'>
+  탈퇴하면 복구할 수 없습니다.<br><br>
+  정말로 탈퇴하시겠습니까?<br><br>         
+  <input type='text' name='userid' value='${userid }'>         
   <button type="submit">삭제</button>
   <button type="button" onclick="location.href='./list.do'">취소(목록)</button>
  

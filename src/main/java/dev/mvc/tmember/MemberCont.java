@@ -34,7 +34,7 @@ public class MemberCont {
   @RequestMapping(value = "/member/home.do", method = RequestMethod.GET)
   public ModelAndView home() {
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/index.jsp"); // member에 create.do가 들어올 경우 이동 -> /webapp/member/create.jsp
+    mav.setViewName("/index"); // member에 create.do가 들어올 경우 이동 -> /webapp/member/create.jsp
  
     return mav;
   }
@@ -60,7 +60,7 @@ public class MemberCont {
     
 // 권한, 인증 추가 ---------------------------------------------------------    
     memberVO.setAuth(Tool.key()); // ABC012345678901234
-    memberVO.setDroupout("N");
+    memberVO.setDropout("N");
      
     if (memberDAO.admin_search("M") == 0){ // 컬럼명, 마스터 계정
       msgs.add("최초 등록 계정임으로 Master 계정입니다.<br><br>");
@@ -77,7 +77,7 @@ public class MemberCont {
     content += "아래의 링크를 클릭하면 가입이 완료됩니다.<br><br>";
     // http://172.16.12.1:9090/admin_v1jq/admin1/confirm.jsp?email=testcell2010@gmail.com&auth=ABC1234567890
 
-    content += "http://localhost:9090/junggo/member/confirm.do?email=" + memberVO.getEmail() + "&auth=" + memberVO.getAuth();
+    content += "http://localhost:9090/tmember/member/confirm.do?email=" + memberVO.getEmail() + "&auth=" + memberVO.getAuth();
 
     // mw-002.cafe24.com, Cafe24
     String host = "mw-002.cafe24.com";    // smtp mail server(서버관리자)     
@@ -133,8 +133,6 @@ public class MemberCont {
       links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
     }
  
-    links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
- 
     mav.addObject("msgs", msgs);
     mav.addObject("links", links);
  
@@ -166,9 +164,8 @@ public class MemberCont {
   @ResponseBody
   @RequestMapping(value = "/member/checkNickname.do", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
   public String checkNickname(String nickname) {
- 
+    System.out.print(nickname);
     JSONObject obj = new JSONObject();
- 
     int cnt = memberDAO.checkNickname(nickname);
     obj.put("cnt", cnt);
  
@@ -186,6 +183,46 @@ public class MemberCont {
     JSONObject obj = new JSONObject();
     
     int cnt = memberDAO.checkEmail(email);
+    obj.put("cnt", cnt);
+    
+    return obj.toJSONString();
+  }
+  
+  /**
+   * 수정 시 중복 이메일을 검사합니다.
+   * @param email
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/member/checkNickname_update.do", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+  public String checkNickname_update(String userid, String nickname) {
+    JSONObject obj = new JSONObject();
+    
+    HashMap<String, String> hashMap = new HashMap<String, String>();
+    hashMap.put("userid", userid);
+    hashMap.put("nickname", nickname);
+   
+    int cnt = memberDAO.checkNickname_update(hashMap);
+    obj.put("cnt", cnt);
+    
+    return obj.toJSONString();
+  }
+  
+  /**
+   * 수정 시 중복 이메일을 검사합니다.
+   * @param email
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/member/checkEmail_update.do", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+  public String checkEmail_update(String userid, String email) {
+    JSONObject obj = new JSONObject();
+    
+    HashMap<String, String> hashMap = new HashMap<String, String>();
+    hashMap.put("userid", userid);
+    hashMap.put("email", email);
+    
+    int cnt = memberDAO.checkEmail_update(hashMap);
     obj.put("cnt", cnt);
     
     return obj.toJSONString();
@@ -232,8 +269,6 @@ public class MemberCont {
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
       links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
     }
- 
-    links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
  
     mav.addObject("msgs", msgs);
     mav.addObject("links", links);
@@ -394,7 +429,148 @@ public class MemberCont {
     mav.addObject("links", links);
     
     return mav;
-  }  
+  } 
+  
+  /**
+   * 탈퇴 신청
+   * @param memberVO
+   * @return
+   */
+  @RequestMapping(value = "/member/dropout.do", method = RequestMethod.POST)
+  public ModelAndView dropout(MemberVO memberVO, HttpSession session) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/message");
+    
+    System.out.println(memberVO.getUserid());
+    
+    ArrayList<String> msgs = new ArrayList<String>();
+    ArrayList<String> links = new ArrayList<String>();
+    if (memberDAO.dropout(memberVO) == 1) {
+      session.invalidate();
+      msgs.add("탈퇴가 정상적으로 처리되었습니다.");
+      msgs.add("이용해 주셔서 감사합니다.");
+      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='./create.do'\">회원가입</button>");
+    } else {
+      msgs.add("죄송하지만 다시한번 시도해주세요.");
+      links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
+      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+    }
+ 
+    mav.addObject("msgs", msgs);
+    mav.addObject("links", links);
+ 
+    return mav;
+  }
+  
+  /**
+   * 패스워드 변경 폼 출력
+   * @param mno 회원 번호
+   * @return
+   */
+  @RequestMapping(value = "/member/checkPwd.do", method = RequestMethod.GET)
+  public ModelAndView checkPwd(int mno, String flag) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/checkPwd"); // /webapp/member/checkPwd.jsp
+    
+    mav.addObject("flag", flag);
+    mav.addObject("mno", mno);
+    return mav;
+  }
+  
+  @RequestMapping(value = "/member/checkPwd.do", method = RequestMethod.POST)
+  public ModelAndView checkPwd(MemberVO memberVO, String flag) {
+    ModelAndView mav = new ModelAndView();
+ 
+    ArrayList<String> msgs = new ArrayList<String>();
+    ArrayList<String> links = new ArrayList<String>();
+    // 현재 패스워드 일치 여부 검사
+    if (memberDAO.checkPwd(memberVO.getUserid(), memberVO.getPwd()) == 1){
+      mav.addObject("memberVO", memberDAO.read(memberVO.getMno()));
+        if(flag.equals("1")){
+          mav.setViewName("/member/read");
+        } else {
+          mav.setViewName("/member/dropout");
+        }
+      } else { }
+ 
+    return mav;
+  }
+  
+  /**
+   * 패스워드 삭제 폼 출력
+   * @param mno 삭제할 글 번호
+   * @return
+   */
+  @RequestMapping(value = "/member/delete.do", method = RequestMethod.GET)
+  public ModelAndView delete(int mno) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/delete"); // /webapp/member/delete.jsp
+    mav.addObject("mno", mno);
+    
+    return mav;
+  }
+  
+ 
+  @RequestMapping(value = "/member/emailConfirm.do", method = RequestMethod.POST)
+  public ModelAndView emailConfirm(MemberVO memberVO) {
+    System.out.println("여긴 오나");
+    memberVO.setConfirm("N");
+    memberVO.setAct("H");
+    
+    ArrayList<String> msgs = new ArrayList<String>();
+    ArrayList<String> links = new ArrayList<String>();
+      
+// 이메일 ---------------------------------------------------------     
+    String subject = "Blog 관리자 메일 인증입니다.";  // 제목
+    String content = "메일 인증<br><br>";  // 내용
+    content += "아래의 링크를 클릭하면 가입이 완료됩니다.<br><br>";
+    // http://172.16.12.1:9090/admin_v1jq/admin1/confirm.jsp?email=testcell2010@gmail.com&auth=ABC1234567890
+
+    content += "http://localhost:9090/tmember/member/confirm.do?email=" + memberVO.getEmail() + "&auth=" + memberVO.getAuth();
+
+    // mw-002.cafe24.com, Cafe24
+    String host = "mw-002.cafe24.com";    // smtp mail server(서버관리자)     
+    String from = "chanmi_blog@gmail.com";   // 보내는 주소, 블로그 관리자 주소
+    String to = memberVO.getEmail();    // 받는 사람
+
+    Properties props = new Properties();  // SMTP 프로토콜 사용, port 25
+    props.put("mail.smtp.host", host);
+    props.put("mail.smtp.auth","true");
+
+    Authenticator authenticator = new MyAuthentication();
+    Session sess = Session.getInstance(props, authenticator);   // 계정 인증 검사
+
+    try {
+      Message msg = new MimeMessage(sess);   // 메일 내용 객체 생성
+      msg.setFrom(new InternetAddress(from));   // 보내는 사람 설정
+            
+      // 한명에게만 보냄
+      InternetAddress[] address = {new InternetAddress(to)}; // 받는 사람 설정
+      
+      msg.setRecipients(Message.RecipientType.TO, address); // 수령인 주소 설정
+            
+      msg.setSubject(subject);                  // 제목 설정 
+      msg.setSentDate(new Date());          // 보낸 날짜 설정
+            
+      // msg.setText(msgText); // 메일 내용으로 문자만 보낼 경우
+
+      // 보내는 내용으로 HTML 형식으로 보낼 경우
+      msg.setContent(content, "text/html;charset=utf-8");
+            
+      Transport.send(msg);  // 메일 전송
+
+      msgs.add("<u>인증 메일이 발송되어습니다.</u><br><br>");
+      msgs.add("<u>메일을 열고 링크를 클릭해주세요.</u><br>");
+      
+    } catch (MessagingException mex) {
+      System.out.println(mex.getMessage());
+      // out.println(mex.getMessage()+"<br><br>");
+      // out.println(to + "님에게 메일 발송을 실패 했습니다.");
+    }
+    
+    return update(memberVO);
+  }
 
 }
 

@@ -16,7 +16,7 @@ package dev.mvc.tmember;
     auth                              VARCHAR2(20)     DEFAULT 'N'   NOT NULL,
     confirm                           CHAR(1)    DEFAULT 'N'     NOT NULL, -- 이메일 링크 클릭 여부, Y:클릭, N:클릭안함
     act                               CHAR(1)    NOT NULL,  -- M: 마스터, Y: 로그인 가능, N: 로그인 불가, H: 인증 대기
-    droupout                          VARCHAR2(1)    DEFAULT 'N'     NOT NULL
+    dropout                          VARCHAR2(1)    DEFAULT 'N'     NOT NULL
 );
  * 
  */
@@ -48,7 +48,7 @@ public class MemberVO {
   private String auth  = "";
   private String confirm = "";
   private String act = "";
-  private String droupout = "";
+  private String dropout = "";
   
   /** 등록된 패스워드 */
   private String old_pwd = "";
@@ -167,11 +167,11 @@ public class MemberVO {
   public void setAct(String act) {
     this.act = act;
   }
-  public String getDroupout() {
-    return droupout;
+  public String getDropout() {
+    return dropout;
   }
-  public void setDroupout(String droupout) {
-    this.droupout = droupout;
+  public void setDropout(String dropout) {
+    this.dropout = dropout;
   }
 
   
