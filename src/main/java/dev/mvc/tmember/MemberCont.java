@@ -77,7 +77,7 @@ public class MemberCont {
     content += "아래의 링크를 클릭하면 가입이 완료됩니다.<br><br>";
     // http://172.16.12.1:9090/admin_v1jq/admin1/confirm.jsp?email=testcell2010@gmail.com&auth=ABC1234567890
 
-    content += "http://localhost:9090/tmember/member/confirm.do?email=" + memberVO.getEmail() + "&auth=" + memberVO.getAuth();
+    content += "http://localhost:9090/junggo/member/confirm.do?email=" + memberVO.getEmail() + "&auth=" + memberVO.getAuth();
 
     // mw-002.cafe24.com, Cafe24
     String host = "mw-002.cafe24.com";    // smtp mail server(서버관리자)     
@@ -132,8 +132,6 @@ public class MemberCont {
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
       links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
     }
- 
-    links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
  
     mav.addObject("msgs", msgs);
     mav.addObject("links", links);
@@ -232,8 +230,6 @@ public class MemberCont {
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
       links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
     }
- 
-    links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
  
     mav.addObject("msgs", msgs);
     mav.addObject("links", links);
