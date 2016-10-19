@@ -25,7 +25,7 @@ CREATE TABLE member_test(
 INSERT INTO member_test(userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
                           auth, confirm, act, droupout)
  VALUES('master', (SELECT NVL(MAX(mno), 0)+1 as mno FROM member_test), '1234', '包府磊', '包府磊', 'abc@mail.com', '000-0000-0000', '12345', '扁夯林家', '惑技林家', sysdate,
-              'VIL1476668797084', 'Y', 'M', 'N')
+              'VIL1476668797084', 'Y', 'M', 'N');
 
 
 
