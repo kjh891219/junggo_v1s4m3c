@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="web.tool.*" %>
-<% 
+<%
 String root = request.getContextPath();
 %>
 <header>
@@ -11,8 +11,8 @@ String root = request.getContextPath();
                <li class="join"><a href="<%=root %>/member/create.do"><span></span>JOIN</a></li>
                <% } else { %>
                <li class="logout"><a href="<%=root %>/member/logout.do">${userid }님 로그아웃</a></li>
+               <li class="mytm"><a href="<%=root %>/member/mypage.jsp"><span></span>마이 페이지</a></li>
                <% } %>   
-               <li class="mytm"><a href="#"><span></span>MY토니모리</a></li>
                <li class="orderDelivery"><a href="#"><span></span>주문/배송</a></li>
                <li class="cart"><a href="#"><span></span>장바구니</a></li>
                <!--
