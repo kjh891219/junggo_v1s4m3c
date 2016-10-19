@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="web.tool.*" %>
-<%
+<% 
 String root = request.getContextPath();
 %>
 <header>

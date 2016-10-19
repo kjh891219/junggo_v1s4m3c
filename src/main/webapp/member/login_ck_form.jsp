@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="web.tool.*" %>
- 
+  
 <%
 String url_address = Tool.checkNull(request.getParameter("url_address")); // 로그인 후 이동할 주소
 
