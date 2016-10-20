@@ -139,6 +139,7 @@ $(document).ready(function(){
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
 
+<<<<<<< HEAD
 
   <form name="frmSearch" method="get" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
@@ -228,6 +229,44 @@ $(document).ready(function(){
 </div>
 </div>
 <DIV class='bottom'>${paging}</DIV>
+=======
+<div class="container" style="margin: auto;">
+ <table class="table table-hover" style='width: 100%;'>
+    <thead>
+    <TR>
+    <TH>글번호</TH>
+    <TH>거래구분</TH>
+    <TH>제목</TH>
+    <TH>희망가격</TH>
+    <TH>거래방식</TH>
+    <TH>지역</TH>
+    <TH>닉네임</TH>  
+  </TR>
+  </thead>
+ 
+<tbody>
+<c:forEach var="vo" items="${list }">
+  <TR>
+    <TD>${vo.ctno}</TD>
+    <TD>${vo.deal_code }</TD>
+    <TD style="color: black;"><A href="./read.do?ctno=${vo.ctno}" style="color: black;">${vo.title}</A></TD>
+    <TD>${vo.hprice}</TD>
+    <TD>${vo.deal_way}</TD>
+    <TD>${vo.region}</TD>
+    <TD>${vo.nickname}</TD>
+  </TR>
+</c:forEach>
+</tbody>  
+</TABLE>
+
+</div>
+<div style="text-align: center;">
+<button type='button' onclick="location.href='./create.do'" class="btn btn-success btn-lg">등록</button>
+<button type='button' onclick="location.reload();" class="btn btn-danger btn-lg">새로 고침</button>
+</div>
+</div>
+
+>>>>>>> branch 'master' of https://github.com/kjh891219/junggo_v1s4m3c.git
 
   </div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />     

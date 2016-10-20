@@ -1,5 +1,6 @@
 package dev.mvc.camera;
 
+<<<<<<< HEAD
 import org.springframework.web.multipart.MultipartFile;
 
 public class CameraVO {
@@ -322,6 +323,69 @@ public class CameraVO {
 
   
   
+=======
+
+public class CameraVO {
+
+  /*
+   * CREATE TABLE CAMERA(
+      ctno                              NUMBER(6)    NOT NULL    PRIMARY KEY,
+      category                          VARCHAR2(20)     NOT NULL,
+      nickname                          VARCHAR2(20)     NOT NULL,
+      passwd                            VARCHAR2(10)     NOT NULL,
+      deal_way                          VARCHAR2(20)     NOT NULL,
+      deal_code                         VARCHAR2(20)     NOT NULL,
+      product_code                      VARCHAR2(20)     NOT NULL,
+      hprice                            NUMBER(15)     DEFAULT 0     NOT NULL,
+      region                            VARCHAR2(20)     DEFAULT ''    NOT NULL,
+      tel                               VARCHAR2(14)     DEFAULT ''    NOT NULL,
+      email                             VARCHAR2(100)    DEFAULT ''    NOT NULL,
+      quantity                          NUMBER(6)    DEFAULT 0     NOT NULL,
+      title                             VARCHAR2(200)    DEFAULT ''    NOT NULL,
+      content                           VARCHAR2(4000)     NOT NULL,
+      purc_date                         VARCHAR2(20)     DEFAULT ''    NOT NULL,
+      wdate                             DATE     DEFAULT sysdate     NOT NULL,
+      cnt                               NUMBER(6)    DEFAULT 0     NOT NULL
+  );
+  */
+  
+  /**글번호*/
+  private int ctno;
+  /**카테고리*/
+  private String category;
+  /**닉네임*/
+  private String nickname;
+  /**비밀번호*/
+  private String passwd;
+  /**거래방법*/
+  private String deal_way;
+  /**거래구분*/
+  private String deal_code;
+  /**상품구분*/
+  private String product_code;
+  /**희망가격*/
+  private int hprice;
+  /**지역*/
+  private String region;
+  /**전화번호*/
+  private String tel;
+  /**이메일*/
+  private String email;
+  /**수량*/
+  private int quantity;
+  /**제목*/
+  private String title;
+  /**상세내용*/
+  private String content;
+  /**구입시기*/
+  private String purc_date;
+  /**글등록일*/
+  private String wdate;
+  /**조회수*/
+  private int cnt;
+  /**아이디*/
+  private String userid;
+>>>>>>> branch 'master' of https://github.com/kjh891219/junggo_v1s4m3c.git
   public String getUserid() {
     return userid;
   }

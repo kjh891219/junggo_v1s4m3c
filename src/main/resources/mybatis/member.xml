@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<<<<<<< HEAD
  
 <!-- Oracle 기반 -->
 <mapper namespace = "member">
@@ -103,6 +104,142 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="login" resultType="int" parameterType="MemberVO">
       SELECT COUNT(userid) as cnt 
       FROM member_test 
+=======
+<!--
+MEMBER TABLE
+1. 회원 가입
+  아이디, 닉네임, 이메일 중복 불가능
+2. 회원 탈퇴
+  탈퇴 시 탈퇴 여부(Y), 로그인 불가(N) 상태가 되고 DB에서는 삭제가 되진 않는다 (관리자만 가능)    
+3. 정보 수정
+  이메일 변경 여부 확인 후 새로운 이메일이라면 인증을 받아야 로그인이 가능하다
+4. 회원 조회
+  관리자만 보이도록 할 것
+-->
+
+
+<!-- Oracle 기반 -->
+<mapper namespace = "member">
+
+  <select id='checkId' resultType='int' parameterType='String'>
+    SELECT COUNT(userid) as cnt
+    FROM member
+    WHERE userid=#{userid}
+  </select>
+  
+  <!-- 회원가입시 닉네임 중복 확인 -->
+  <select id='checkNickname' resultType='int' parameterType='String'>
+    SELECT COUNT(userid) as cnt
+    FROM member
+    WHERE nickname=#{nickname}
+  </select>
+  
+  <!-- 회원가입시 이메일 중복 확인 -->
+  <select id='checkEmail' resultType='int' parameterType='String'>
+    SELECT COUNT(userid) as cnt
+    FROM member
+    WHERE email=#{email}
+  </select>
+  
+  <!-- 정보 수정시 닉네임 중복 확인 -->
+  <select id='checkNickname_update' resultType='int' parameterType='Map'>
+    SELECT COUNT(userid) as cnt
+    FROM member
+    WHERE nickname=#{nickname} and userid!=#{userid}
+  </select>
+  
+  <!-- 정보 수정시 이메일 중복 확인 -->
+  <select id='checkEmail_update' resultType='int' parameterType='Map'>
+    SELECT COUNT(userid) as cnt
+    FROM member
+    WHERE email=#{email} and userid!=#{userid}
+  </select>
+
+  <!-- 회원 가입 -->
+  <insert id="create" parameterType="MemberVO">
+    INSERT INTO member(userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
+                          auth, confirm, act, dropout)
+    VALUES (#{userid}, (SELECT NVL(MAX(mno), 0)+1 as mno FROM member), #{pwd}, #{name}, #{nickname}, #{email}, #{tel}, #{zipcode}, #{address1}, #{address2}, sysdate,
+              #{auth}, #{confirm}, #{act}, #{dropout})
+  </insert>
+  
+    <!-- 검색을하지 않는 전체 목록  -->
+  <select id="list" resultType="MemberVO">
+    SELECT mno, userid, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, auth, confirm, act, dropout
+    FROM member
+    ORDER BY mno ASC
+  </select>
+                          
+  <update id="update" parameterType="MemberVO">
+    UPDATE member 
+    SET pwd=#{pwd}, nickname=#{nickname}, email=#{email}, tel=#{tel}, zipcode=#{zipcode},
+          address1=#{address1}, address2=#{address2}, confirm=#{confirm}, act=#{act}
+    WHERE mno=#{mno}
+  </update> 
+
+  <!-- 조회 -->
+  <select id="read" resultType="MemberVO" parameterType="int">
+    SELECT userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
+                          auth, confirm, act, dropout
+    FROM member
+    WHERE mno=#{mno}
+  </select>
+   
+  <!-- 아이디로 조회 -->
+  <select id="read_userid" resultType="MemberVO" parameterType="String">
+    SELECT userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
+                          auth, confirm, act, dropout
+    FROM member
+    WHERE userid=#{userid}
+  </select>
+ 
+  <!-- 탈퇴 신청  --> 
+  <update id="dropout" parameterType="MemberVO">
+    UPDATE member 
+    SET dropout='Y', act='N'
+    WHERE userid=#{userid}
+  </update> 
+  
+ <!-- 본인 인증 - 비밀번호 확인  -->
+  <select id="checkPwd" resultType="int" parameterType="Map">
+    SELECT COUNT(mno) as cnt
+    FROM member
+    WHERE userid=#{userid} AND pwd=#{pwd}
+  </select>
+
+<!--    
+  <update id="update_passwd" parameterType="Map"> Map 안에 mno, passwd가 자동으로 대응된다
+    UPDATE member
+    SET passwd=#{passwd}
+    WHERE mno=#{mno}
+  </update>
+  
+   <delete id="delete" parameterType="int">
+    DELETE FROM member
+    WHERE mno=#{mno}
+  </delete>  
+  -->
+ 
+  
+  <!-- 관리자 권한 조회 -->
+  <select id="admin_search" resultType="int" parameterType="String">
+      SELECT COUNT(mno) as cnt
+      FROM member
+      WHERE act=#{act}
+  </select>
+  
+  <!-- 사용자가 회원 가입 이메일 링크를 눌렀을 경우의 처리 -->
+  <update id="confirm" parameterType="MemberVO">
+      UPDATE member
+      SET confirm = 'Y', act = 'Y'
+      WHERE email=#{email} AND auth=#{auth}
+  </update>
+  
+  <!-- 로그인  -->
+  <select id="login" resultType="int" parameterType="MemberVO">
+      SELECT COUNT(userid) as cnt 
+      FROM member 
+>>>>>>> branch 'master' of https://github.com/kjh891219/junggo_v1s4m3c.git
       WHERE userid=#{userid} AND pwd=#{pwd}
   </select>
   

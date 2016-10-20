@@ -29,7 +29,6 @@ $(document).ready(function(){
 });
 </script>
 <style type="text/css">
-<<<<<<< HEAD
 
 /* 전체 스타일 */
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -132,8 +131,6 @@ $(document).ready(function(){
       text-align: center;
    }
  
-=======
->>>>>>> branch 'master' of https://github.com/kjh891219/junggo_v1s4m3c.git
  
 </style>
 </head> 
@@ -141,7 +138,7 @@ $(document).ready(function(){
 <body leftmargin="0" topmargin="0">
 
    <jsp:include page="/menu/top.jsp" flush='false' />
-   <jsp:include page="/menu/left.jsp" flush='false' />
+   <jsp:include page="/member/menu/left.jsp" flush='false' />
    
 <div class="container">
    <!-- 본문 내용 -->
