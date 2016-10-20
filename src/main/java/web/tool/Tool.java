@@ -16,6 +16,26 @@ import javax.servlet.http.HttpSession;
 public class Tool {
   
   /**
+   * ���ڿ��� ���̰� length ���� ũ�� "..." �� ǥ���ϴ� �޼ҵ�
+   * 
+   * @param str ���ڿ�
+   * @param length ������ ���ڿ� ����
+   * @return
+   */
+  public static synchronized String textLength(String str, int length) {
+
+    if (str != null) {
+      if (str.length() > length) {
+        str = str.substring(0, length) + "...";
+      }
+    } else {
+      str = "";
+    }
+
+    return str;
+  }
+  
+  /**
    * Ű�� �����մϴ�. ��) ABC + ����ð�: ABC1234567890123
    * @return
    */
