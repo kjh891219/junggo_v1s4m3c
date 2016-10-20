@@ -227,7 +227,7 @@ $(document).ready(function(){
 <button type='button' onclick="location.reload();" class="btn btn-danger btn-lg">새로 고침</button>
 </div>
 </div>
-
+<DIV class='bottom'>${paging}</DIV>
 
   </div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />     

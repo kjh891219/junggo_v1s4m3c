@@ -53,5 +53,9 @@ public class CameraDAO implements CameraDAOInter{
   public int count(HashMap hashmap) {
     return mybatis.selectOne("camera.count", hashmap);
   }
+  @Override
+  public List<CameraVO> list3(HashMap hashmap) {
+    return mybatis.selectList("camera.list3", hashmap);
+  }
 
 }

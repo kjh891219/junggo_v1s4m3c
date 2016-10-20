@@ -85,4 +85,12 @@ public interface CameraDAOInter {
   public int count(HashMap hashmap);
   
   
+  /**
+   * 검색 목록
+   * <select id="list3" resultType="CameraVO" parameterType="HashMap" > 
+   * @param hashmap 검색 조건
+   * @return
+   */
+  public List<CameraVO> list3(HashMap hashmap);
+  
 }

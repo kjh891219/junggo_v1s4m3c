@@ -151,6 +151,78 @@
             </div>
           </li>
           
+          
+          <li>
+            <label for="file5" style="width:150px;">업로드 파일: </label>
+            <span>
+              <c:if test="${cameraVO.size6 > 0}">
+                <A href='${pageContext.request.contextPath}/download?dir=/camera/storage&filename=${cameraVO.file6}'>${cameraVO.file6}</A> (${cameraVO.size6Label})
+              </c:if>
+            </span>    
+            <div id='file6Panel'>
+              <c:set var='file6' value="${fn:toLowerCase(cameraVO.file6)}" />
+              <c:choose>
+                <c:when test="${fn:endsWith(file6, '.jpg')}">
+                  <IMG id='file6' src='./storage/${cameraVO.file6}' >
+                </c:when>
+                <c:when test="${fn:endsWith(file6, '.gif')}">
+                  <IMG id='file6'  src='./storage/${cameraVO.file6}' >
+                </c:when>
+                <c:when test="${fn:endsWith(file6, '.png')}">
+                  <IMG id='file6'  src='./storage/${cameraVO.file6}' >
+                </c:when>
+              </c:choose>
+            </div>
+          </li>
+          
+          
+           <li>
+            <label for="file7" style="width:150px;">업로드 파일: </label>
+            <span>
+              <c:if test="${cameraVO.size8 > 0}">
+                <A href='${pageContext.request.contextPath}/download?dir=/camera/storage&filename=${cameraVO.file8}'>${cameraVO.file8}</A> (${cameraVO.size8Label})
+              </c:if>
+            </span>    
+            <div id='file8Panel'>
+              <c:set var='file8' value="${fn:toLowerCase(cameraVO.file8)}" />
+              <c:choose>
+                <c:when test="${fn:endsWith(file8, '.jpg')}">
+                  <IMG id='file8' src='./storage/${cameraVO.file8}' >
+                </c:when>
+                <c:when test="${fn:endsWith(file8, '.gif')}">
+                  <IMG id='file8'  src='./storage/${cameraVO.file8}' >
+                </c:when>
+                <c:when test="${fn:endsWith(file8, '.png')}">
+                  <IMG id='file8'  src='./storage/${cameraVO.file8}' >
+                </c:when>
+              </c:choose>
+            </div>
+          </li>
+          
+          
+           <li>
+            <label for="file9" style="width:150px;">업로드 파일: </label>
+            <span>
+              <c:if test="${cameraVO.size10 > 0}">
+                <A href='${pageContext.request.contextPath}/download?dir=/camera/storage&filename=${cameraVO.file10}'>${cameraVO.file10}</A> (${cameraVO.size10Label})
+              </c:if>
+            </span>    
+            <div id='file10Panel'>
+              <c:set var='file10' value="${fn:toLowerCase(cameraVO.file10)}" />
+              <c:choose>
+                <c:when test="${fn:endsWith(file10, '.jpg')}">
+                  <IMG id='file10' src='./storage/${cameraVO.file10}' >
+                </c:when>
+                <c:when test="${fn:endsWith(file10, '.gif')}">
+                  <IMG id='file10'  src='./storage/${cameraVO.file10}' >
+                </c:when>
+                <c:when test="${fn:endsWith(file10, '.png')}">
+                  <IMG id='file10'  src='./storage/${cameraVO.file10}' >
+                </c:when>
+              </c:choose>
+            </div>
+          </li>
+                    
 </div>
 <DIV style="text-align: right;">
   <button type='button' onclick="location.href='./update.do?ctno=${cameraVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}'">수정</button>

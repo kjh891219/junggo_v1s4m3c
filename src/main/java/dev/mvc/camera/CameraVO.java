@@ -80,6 +80,34 @@ public class CameraVO {
   private long size4 = 0;
   
   
+  /** Preview 소형 이미지3 200 X 150, 자동 생성됨 */
+  private String file5 = "";
+  
+  /** 업로드 파일3 */
+  private String file6 = "";
+  /** 업로드된 파일 크기3 */
+  private long size6 = 0;
+  
+  
+  /** Preview 소형 이미지4 200 X 150, 자동 생성됨 */
+  private String file7 = "";
+  
+  /** 업로드 파일4 */
+  private String file8 = "";
+  /** 업로드된 파일 크기4 */
+  private long size8 = 0;
+  
+  
+  /** Preview 소형 이미지5 200 X 150, 자동 생성됨 */
+  private String file9 = "";
+  
+  /** 업로드 파일5 */
+  private String file10 = "";
+  /** 업로드된 파일 크기5 */
+  private long size10 = 0;
+  
+  
+  
   /** Spring Framework에서 자동 주입되는 업로드 파일 객체,
   실제 컬럼은 존재하지 않음.
    */  
@@ -96,6 +124,133 @@ public class CameraVO {
 
   /** size4의 컴마 저장 출력용 변수, 실제 컬럼은 존재하지 않음. */
   private String size4Label; 
+  
+  
+  /** Spring Framework에서 자동 주입되는 업로드 파일 객체3,
+  실제 컬럼은 존재하지 않음.
+   */  
+  private MultipartFile file6MF;
+
+  /** size6의 컴마 저장 출력용 변수, 실제 컬럼은 존재하지 않음. */
+  private String size6Label; 
+  
+  /** Spring Framework에서 자동 주입되는 업로드 파일 객체4,
+  실제 컬럼은 존재하지 않음.
+   */  
+  private MultipartFile file8MF;
+
+  /** size8의 컴마 저장 출력용 변수, 실제 컬럼은 존재하지 않음. */
+  private String size8Label; 
+  
+  /** Spring Framework에서 자동 주입되는 업로드 파일 객체5,
+  실제 컬럼은 존재하지 않음.
+   */  
+  private MultipartFile file10MF;
+
+  /** size10의 컴마 저장 출력용 변수, 실제 컬럼은 존재하지 않음. */
+  private String size10Label; 
+  
+  
+  
+  
+  
+  
+  public String getFile5() {
+    return file5;
+  }
+  public void setFile5(String file5) {
+    this.file5 = file5;
+  }
+  public String getFile6() {
+    return file6;
+  }
+  public void setFile6(String file6) {
+    this.file6 = file6;
+  }
+  public long getSize6() {
+    return size6;
+  }
+  public void setSize6(long size6) {
+    this.size6 = size6;
+  }
+  public String getFile7() {
+    return file7;
+  }
+  public void setFile7(String file7) {
+    this.file7 = file7;
+  }
+  public String getFile8() {
+    return file8;
+  }
+  public void setFile8(String file8) {
+    this.file8 = file8;
+  }
+  public long getSize8() {
+    return size8;
+  }
+  public void setSize8(long size8) {
+    this.size8 = size8;
+  }
+  public String getFile9() {
+    return file9;
+  }
+  public void setFile9(String file9) {
+    this.file9 = file9;
+  }
+  public String getFile10() {
+    return file10;
+  }
+  public void setFile10(String file10) {
+    this.file10 = file10;
+  }
+  public long getSize10() {
+    return size10;
+  }
+  public void setSize10(long size10) {
+    this.size10 = size10;
+  }
+  public MultipartFile getFile6MF() {
+    return file6MF;
+  }
+  public void setFile6MF(MultipartFile file6mf) {
+    file6MF = file6mf;
+  }
+  public String getSize6Label() {
+    return size6Label;
+  }
+  public void setSize6Label(String size6Label) {
+    this.size6Label = size6Label;
+  }
+  public MultipartFile getFile8MF() {
+    return file8MF;
+  }
+  public void setFile8MF(MultipartFile file8mf) {
+    file8MF = file8mf;
+  }
+  public String getSize8Label() {
+    return size8Label;
+  }
+  public void setSize8Label(String size8Label) {
+    this.size8Label = size8Label;
+  }
+  public MultipartFile getFile10MF() {
+    return file10MF;
+  }
+  public void setFile10MF(MultipartFile file10mf) {
+    file10MF = file10mf;
+  }
+  public String getSize10Label() {
+    return size10Label;
+  }
+  public void setSize10Label(String size10Label) {
+    this.size10Label = size10Label;
+  }
+ 
+  
+  
+  
+  
+  
   
   
   public String getFile3() {

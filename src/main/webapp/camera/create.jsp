@@ -147,6 +147,18 @@
         <label for='file4MF'>업로드 파일2</label>
         <input type="file" name='file4MF' id='file4MF' size='40'>
       </div>
+      <div class="form-inline">   
+        <label for='file6MF'>업로드 파일3</label>
+        <input type="file" name='file6MF' id='file6MF' size='40'>
+      </div>
+      <div class="form-inline">   
+        <label for='file8MF'>업로드 파일4</label>
+        <input type="file" name='file8MF' id='file8MF' size='40'>
+      </div>
+      <div class="form-inline">   
+        <label for='file10MF'>업로드 파일5</label>
+        <input type="file" name='file10MF' id='file10MF' size='40'>
+      </div>
       
       <div>
       <li class='right'>
