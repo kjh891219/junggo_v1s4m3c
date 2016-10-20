@@ -32,20 +32,32 @@ $(function(){
   <caption>관리자만 접근가능합니다.</caption>
   <colgroup>
     <col style='width: 5%;'/>
+    <col style='width: 5%;'/>
+    <col style='width: 5%;'/>
     <col style='width: 10%;'/>
     <col style='width: 10%;'/>
-    <col style='width: 20%;'/>
-    <col style='width: 30%;'/>
     <col style='width: 15%;'/>
     <col style='width: 10%;'/>
+    <col style='width: 10%;'/>
+    <col style='width: 10%;'/>
+    <col style='width: 5%;'/>
+    <col style='width: 5%;'/>
+    <col style='width: 5%;'/>
+    <col style='width: 5%;'/>
   </colgroup>
   <TR>
     <TH class='th'>번호</TH>
     <TH class='th'>ID</TH>
+    <TH class='th'>비밀번호</TH>
     <TH class='th'>성명</TH>
+    <TH class='th'>닉네임</TH>
+    <TH class='th'>이메일</TH>
     <TH class='th'>전화번호</TH>
     <TH class='th'>주소</TH>
     <TH class='th'>등록일</TH>
+    <TH class='th'>인증여부</TH>
+    <TH class='th'>권한</TH>
+    <TH class='th'>탈퇴신청</TH>
     <TH class='th'>기타</TH>
   </TR>
  
@@ -54,7 +66,10 @@ $(function(){
   <TR>
     <TD class='td'>${vo.mno} </TD>
     <TD class='td'><A href="./read.do?mno=${vo.mno}">${vo.userid} </A></TD>
+    <TD class='td'>${vo.pwd}</TD>
     <TD class='td'><A href="./read.do?mno=${vo.mno}">${vo.name}</A></TD>
+    <TD class='td'>${vo.nickname}</TD>
+    <TD class='td'>${vo.email}</TD>
     <TD class='td'>${vo.tel}</TD>
     <TD class='td'>
     <c:choose>
@@ -67,6 +82,9 @@ $(function(){
     </c:choose>
     </TD>
     <TD class='td'>${vo.mdate.substring(0, 10)}</TD>
+    <TD class='td'>${vo.confirm}</TD>
+    <TD class='td'>${vo.act}</TD>
+    <TD class='td'>${vo.dropout}</TD>
     <TD class='td'>
       <A href="./passwd.do?mno=${vo.mno}"><IMG src='./images/passwd.png' title='패스워드 변경'></A>
       <A href="./read.do?mno=${vo.mno}"><IMG src='./images/update.png' title='수정'></A>

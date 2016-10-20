@@ -62,7 +62,7 @@ MEMBER TABLE
   
     <!-- 검색을하지 않는 전체 목록  -->
   <select id="list" resultType="MemberVO">
-    SELECT mno, userid, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate
+    SELECT mno, userid, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, auth, confirm, act, dropout
     FROM member
     ORDER BY mno ASC
   </select>
