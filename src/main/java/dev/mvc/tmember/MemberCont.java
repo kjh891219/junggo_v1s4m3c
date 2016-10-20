@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import web.tool.Tool;
-
+ 
 @Controller
 public class MemberCont {
   @Autowired
@@ -251,30 +251,6 @@ public class MemberCont {
     return mav;
   }
   
-  @RequestMapping(value = "/member/update.do", method = RequestMethod.POST)
-  public ModelAndView update(MemberVO memberVO) {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("/member/message");
- 
-    ArrayList<String> msgs = new ArrayList<String>();
-    ArrayList<String> links = new ArrayList<String>();
- 
-    if (memberDAO.update(memberVO) == 1) {
-      msgs.add("회원정보가 수정되었습니다.");
-      links.add("<button type='button' onclick=\"location.href='./read.do?mno="+memberVO.getMno()+"'\">변경된 회원정보 확인</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
-    } else {
-      msgs.add("회원 정보 변경에 실패했습니다.");
-      msgs.add("죄송하지만 다시한번 시도해주세요.");
-      links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
-    }
- 
-    mav.addObject("msgs", msgs);
-    mav.addObject("links", links);
- 
-    return mav;
-  }
  
   /**
    * 이메일 인증 후 처리
@@ -333,10 +309,6 @@ public class MemberCont {
       String act = memberDAO.read_userid(memberVO.getUserid()).getAct();
       int mno = memberDAO.read_userid(memberVO.getUserid()).getMno();
       if ("MY".indexOf(act) >= 0){ // 로그인 권한 있음. M: Master, Y:일반 회원
-        System.out.println("act:"+ ("MY".indexOf(act)));
-        System.out.println("act:"+ ("MY".indexOf("M")));
-        System.out.println("act:"+ ("MY".indexOf("Y")));
-        
         session.setAttribute("userid", memberVO.getUserid());
         session.setAttribute("pwd", memberVO.getPwd());
         session.setAttribute("act", act);
@@ -511,65 +483,96 @@ public class MemberCont {
     return mav;
   }
   
- 
-  @RequestMapping(value = "/member/emailConfirm.do", method = RequestMethod.POST)
-  public ModelAndView emailConfirm(MemberVO memberVO) {
-    System.out.println("여긴 오나");
-    memberVO.setConfirm("N");
-    memberVO.setAct("H");
-    
+ /**
+  * 회원 정보 수정
+  * 이메일 변경 시 재인증 필요
+  * @param memberVO
+  * @param updateFlag
+  * @return
+  */
+  @RequestMapping(value = "/member/update.do", method = RequestMethod.POST)
+  public ModelAndView emailConfirm(MemberVO memberVO, String updateFlag, HttpSession session) {
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
-      
-// 이메일 ---------------------------------------------------------     
-    String subject = "Blog 관리자 메일 인증입니다.";  // 제목
-    String content = "메일 인증<br><br>";  // 내용
-    content += "아래의 링크를 클릭하면 가입이 완료됩니다.<br><br>";
-    // http://172.16.12.1:9090/admin_v1jq/admin1/confirm.jsp?email=testcell2010@gmail.com&auth=ABC1234567890
-
-    content += "http://localhost:9090/tmember/member/confirm.do?email=" + memberVO.getEmail() + "&auth=" + memberVO.getAuth();
-
-    // mw-002.cafe24.com, Cafe24
-    String host = "mw-002.cafe24.com";    // smtp mail server(서버관리자)     
-    String from = "chanmi_blog@gmail.com";   // 보내는 주소, 블로그 관리자 주소
-    String to = memberVO.getEmail();    // 받는 사람
-
-    Properties props = new Properties();  // SMTP 프로토콜 사용, port 25
-    props.put("mail.smtp.host", host);
-    props.put("mail.smtp.auth","true");
-
-    Authenticator authenticator = new MyAuthentication();
-    Session sess = Session.getInstance(props, authenticator);   // 계정 인증 검사
-
-    try {
-      Message msg = new MimeMessage(sess);   // 메일 내용 객체 생성
-      msg.setFrom(new InternetAddress(from));   // 보내는 사람 설정
-            
-      // 한명에게만 보냄
-      InternetAddress[] address = {new InternetAddress(to)}; // 받는 사람 설정
-      
-      msg.setRecipients(Message.RecipientType.TO, address); // 수령인 주소 설정
-            
-      msg.setSubject(subject);                  // 제목 설정 
-      msg.setSentDate(new Date());          // 보낸 날짜 설정
-            
-      // msg.setText(msgText); // 메일 내용으로 문자만 보낼 경우
-
-      // 보내는 내용으로 HTML 형식으로 보낼 경우
-      msg.setContent(content, "text/html;charset=utf-8");
-            
-      Transport.send(msg);  // 메일 전송
-
-      msgs.add("<u>인증 메일이 발송되어습니다.</u><br><br>");
-      msgs.add("<u>메일을 열고 링크를 클릭해주세요.</u><br>");
-      
-    } catch (MessagingException mex) {
-      System.out.println(mex.getMessage());
-      // out.println(mex.getMessage()+"<br><br>");
-      // out.println(to + "님에게 메일 발송을 실패 했습니다.");
-    }
     
-    return update(memberVO);
+    if(updateFlag.equals("1")) { // 이메일이 변경 되었다면 실행
+      // 로그인 불가능 상태
+      memberVO.setConfirm("N");
+      memberVO.setAct("H");
+      
+        
+  // 이메일 ---------------------------------------------------------     
+      String subject = "Blog 관리자 메일 인증입니다.";  // 제목
+      String content = "메일 인증<br><br>";  // 내용
+      content += "아래의 링크를 클릭하면 가입이 완료됩니다.<br><br>";
+      // http://172.16.12.1:9090/admin_v1jq/admin1/confirm.jsp?email=testcell2010@gmail.com&auth=ABC1234567890
+  
+      content += "http://localhost:9090/tmember/member/confirm.do?email=" + memberVO.getEmail() + "&auth=" + memberVO.getAuth();
+  
+      // mw-002.cafe24.com, Cafe24
+      String host = "mw-002.cafe24.com";    // smtp mail server(서버관리자)     
+      String from = "chanmi_blog@gmail.com";   // 보내는 주소, 블로그 관리자 주소
+      String to = memberVO.getEmail();    // 받는 사람
+  
+      Properties props = new Properties();  // SMTP 프로토콜 사용, port 25
+      props.put("mail.smtp.host", host);
+      props.put("mail.smtp.auth","true");
+  
+      Authenticator authenticator = new MyAuthentication();
+      Session sess = Session.getInstance(props, authenticator);   // 계정 인증 검사
+  
+      try {
+        Message msg = new MimeMessage(sess);   // 메일 내용 객체 생성
+        msg.setFrom(new InternetAddress(from));   // 보내는 사람 설정
+              
+        // 한명에게만 보냄
+        InternetAddress[] address = {new InternetAddress(to)}; // 받는 사람 설정
+        
+        msg.setRecipients(Message.RecipientType.TO, address); // 수령인 주소 설정
+              
+        msg.setSubject(subject);                  // 제목 설정 
+        msg.setSentDate(new Date());          // 보낸 날짜 설정
+              
+        // msg.setText(msgText); // 메일 내용으로 문자만 보낼 경우
+  
+        // 보내는 내용으로 HTML 형식으로 보낼 경우
+        msg.setContent(content, "text/html;charset=utf-8");
+              
+        Transport.send(msg);  // 메일 전송
+  
+        msgs.add("<u>이메일 재인증이 필요합니다.</u><br><br>");
+        msgs.add("<u>메일을 열고 링크를 클릭해주세요.</u><br>");
+        
+      } catch (MessagingException mex) {
+        System.out.println(mex.getMessage());
+        // out.println(mex.getMessage()+"<br><br>");
+        // out.println(to + "님에게 메일 발송을 실패 했습니다.");
+      }
+      
+      } // if문
+    
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/message");
+ 
+    if (memberDAO.update(memberVO) == 1) {
+      msgs.add("회원정보가 수정되었습니다.");
+      msgs.add("다시 로그인 해주세요.");
+      links.add("<button type='button' onclick=\"location.href='./login.do'\">로그인</button>");
+      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+    } else {
+      msgs.add("회원 정보 변경에 실패했습니다.");
+      msgs.add("죄송하지만 다시한번 시도해주세요.");
+      links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
+      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+    }
+ 
+    mav.addObject("msgs", msgs);
+    mav.addObject("links", links);
+    
+    session.invalidate();
+    
+    return mav;
+    
   }
 
 }

@@ -18,8 +18,6 @@
 <script type="text/javascript">
 
 $(function(){
-  alert("${memberVO.email}");
-  alert("${memberVO.getConfirm()}");
   $.removeCookie('checkPwd'); // 기존의 쿠기 값을 삭제  
   $.removeCookie('checkNickname'); // 기존의 쿠기 값을 삭제  
   $.removeCookie('checkEmail'); // 기존의 쿠기 값을 삭제  
@@ -89,11 +87,15 @@ function checkEmail_res(data){
 }
 
 function checkEmail_res2(){
-  if( "${memberVO.email}".equals($('#email').val()) ) {
-    //$.post('./emailConfirm.do', "${memberVO}", 'json');
-  }
-  else {
-    // $.post('./emailConfirm.do', "${memberVO}", 'json');
+  alert("기존:" + "${memberVO.email}");
+  alert("변경:" + $('#email').val());
+  alert("${memberVO.getConfirm()}");
+  if( "${memberVO.email}" == $('#email').val() ) {
+    alert("이메일 변경되지 않았다");
+      $('#updateFlag').val("0");
+  } else {
+      alert("이메일 변경됨");
+      $('#updateFlag').val("1");
   }
 }
 
@@ -111,10 +113,12 @@ function checkEmail_res2(){
 <DIV class='title'>회원 정보 수정</DIV>
  
 <DIV class='content'>
-<FORM name='frm' method='POST' action='./emailConfirm.do' onsubmit = 'send()'>
+<FORM name='frm' method='POST' action='./update.do' onsubmit = 'return send()'>
   <input type='hidden' name='mno' value='${memberVO.mno}'>         
   <input type='hidden' name='confirm' value='${memberVO.confirm}'>         
   <input type='hidden' name='act' value='${memberVO.act}'>         
+  <input type='hidden' name='auth' value='${memberVO.auth}'>         
+  <input type='hidden' name='updateFlag' id='updateFlag'>         
   <fieldset>
     <ul>
       <li>
