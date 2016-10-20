@@ -60,7 +60,16 @@ CREATE TABLE CAMERA(
     size2                             NUMBER(9)        DEFAULT 0       NULL,
     file3                             VARCHAR2(100)        NULL ,
     file4                             VARCHAR2(50)         NULL ,
-    size4                             NUMBER(9)        DEFAULT 0       NULL
+    size4                             NUMBER(9)        DEFAULT 0       NULL,
+    file5                             VARCHAR2(100)        NULL ,
+    file6                             VARCHAR2(50)         NULL ,
+    size6                             NUMBER(9)        DEFAULT 0       NULL,
+    file7                             VARCHAR2(100)        NULL ,
+    file8                             VARCHAR2(50)         NULL ,
+    size8                             NUMBER(9)        DEFAULT 0       NULL,
+    file9                             VARCHAR2(100)        NULL ,
+    file10                             VARCHAR2(50)         NULL ,
+    size10                             NUMBER(9)        DEFAULT 0       NULL
 );
 
 alter table CAMERA add (userid varchar2(20) );
@@ -175,17 +184,29 @@ FROM camera
 where title like '%µğÄ«%'
 
 -- step 1
- SELECT ctno, deal_code, title, hprice, deal_way, region, nickname, wdate,cnt, file1, file2, size2  
+ SELECT ctno, deal_code, title, hprice, deal_way, region, nickname, wdate,cnt, file1, file2, size2, rownum as r  
    FROM camera
-   ORDER BY ctno DESC    
+   ORDER BY ctno DESC
+   
 -- step 2
-SELECT ctno, deal_code, title, hprice, deal_way, region, nickname, wdate,cnt, file1, file2, size2
+SELECT ctno, deal_code, title, hprice, deal_way, region, nickname, wdate,cnt, file1, file2, size2, rownum as r
 from (
 SELECT ctno, deal_code, title, hprice, deal_way, region, nickname, wdate,cnt, file1, file2, size2  
    FROM camera
    ORDER BY ctno DESC
 )
+
 -- step 3
+SELECT ctno, deal_code, title, hprice, deal_way, region, nickname, wdate,cnt, file1, file2, size2, r
+from (
+SELECT ctno, deal_code, title, hprice, deal_way, region, nickname, wdate,cnt, file1, file2, size2, rownum as r
+from (
+SELECT ctno, deal_code, title, hprice, deal_way, region, nickname, wdate,cnt, file1, file2, size2  
+   FROM camera
+   ORDER BY ctno DESC
+  )
+)
+where r >=1 and r<=2
 
 
 
