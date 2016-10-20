@@ -87,14 +87,9 @@ function checkEmail_res(data){
 }
 
 function checkEmail_res2(){
-  alert("기존:" + "${memberVO.email}");
-  alert("변경:" + $('#email').val());
-  alert("${memberVO.getConfirm()}");
   if( "${memberVO.email}" == $('#email').val() ) {
-    alert("이메일 변경되지 않았다");
       $('#updateFlag').val("0");
   } else {
-      alert("이메일 변경됨");
       $('#updateFlag').val("1");
   }
 }
